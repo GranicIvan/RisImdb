@@ -20,6 +20,9 @@
 	<a href="/imdb/film/sortiraniFilmovi">Prikaz filmova sortirano ?</a> <br>
 	<a href="/imdb/film/getSviFilmoviReport.pdf">Jassper report svih filmova</a> <br>
 	<a href="/imdb/reziser/getReziserData">Izmena rezisera</a> <br>
+	<a href="/imdb/film/dataForPoveziFiG">Povezivanje filma i Glumca</a> <br>
+	
+	
 	
 	
 </body>

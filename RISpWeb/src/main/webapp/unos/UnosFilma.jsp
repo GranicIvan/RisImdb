@@ -9,7 +9,7 @@
 </head>
 <body>
 
-	<form action="/imdb/film/saveFilm" method="post">
+	<form action="/imdb/film/poveziFiG" method="post">
 		<table>
 
 			<tr>

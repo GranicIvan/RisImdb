@@ -134,6 +134,10 @@ public class Film implements Serializable {
 	public void setGlumacs(List<Glumac> glumacs) {
 		this.glumacs = glumacs;
 	}
+	
+	public void addGlumac(Glumac g) {
+		this.glumacs.add(g);
+	}
 
 	public List<Korisnik> getDislikedByKorisnik() {
 		return this.dislikedByKorisnik;
@@ -149,6 +153,10 @@ public class Film implements Serializable {
 
 	public void setFavedByKorisnik(List<Korisnik> favedByKorisnik) {
 		this.favedByKorisnik = favedByKorisnik;
+	}
+	
+	public void addFavedByKorisnik(Korisnik k) {
+		this.favedByKorisnik.add(k);
 	}
 
 	public List<Korisnik> getLikedByKorisnik() {

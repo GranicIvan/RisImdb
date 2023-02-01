@@ -15,8 +15,8 @@ public interface FilmRepo extends JpaRepository<Film, Integer>{
 	@Query("select distinct f from Film f WHERE f.release_date BETWEEN  :datumOd  AND :datumDo")
 	public List<Film> filmoviUPerioduODDO(@Param("datumOd")Date datumOd, @Param("datumDo")Date datumDo);
 	
-
-	@Query("select distinct f from Film f ORDER BY f.release_date")
+//	@Query("select distinct f from Film f ORDER BY f.release_date")
+	@Query("select distinct f from Film f order by f.release_date")
 	public List<Film> sortiraniFilmoviR();
 	
 	

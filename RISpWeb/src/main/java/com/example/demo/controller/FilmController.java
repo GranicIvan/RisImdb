@@ -21,10 +21,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.example.demo.repository.FilmRepo;
+import com.example.demo.repository.GlumacRepository;
 import com.example.demo.repository.ReziserRepo;
 import com.example.demo.repository.ZanrRepo;
 
 import model.Film;
+import model.Glumac;
+import model.Korisnik;
 import model.Reziser;
 import model.Zanr;
 import net.sf.jasperreports.engine.JasperCompileManager;
@@ -46,6 +49,9 @@ public class FilmController {
 	
 	@Autowired
 	ReziserRepo rr;
+	
+	@Autowired
+	GlumacRepository gr;
 	
 	
 	@RequestMapping(value="/getZanrove", method=RequestMethod.GET)
@@ -194,13 +200,43 @@ public class FilmController {
 	@RequestMapping(value="/faveFilm", method=RequestMethod.POST)
 	public String saveFilm(Integer idF,  Model m, HttpServletRequest request  ) {
 		
+		Film film = fr.findById(idF).get();
+		Korisnik korisnik = new Korisnik(); //Kako da ga dobijem
+		
+		film.addFavedByKorisnik(korisnik); 
 		
 		
-		
-		return ""; //ISTU STRANICU
+		return ""; //ISTU STRANICU 
 	}
 		
 	
+	@RequestMapping(value="/dataForPoveziFiG", method=RequestMethod.GET)
+	public String dataForPoveziFiG( HttpServletRequest request) {
+		
+		List<Film> filmovi = fr.findAll();
+		request.getSession().setAttribute("filmovi", filmovi);
+		
+		List<Glumac> glumci = gr.findAll();
+		request.getSession().setAttribute("glumci", glumci);
+		
+		return "povezi/PovezFilmGlumac";
+	}
+	
+	
+	@RequestMapping(value="/poveziFiG", method=RequestMethod.POST)
+	public String poveziFiG(Integer idF, Integer idG,  Model m, HttpServletRequest request  ) {
+	
+		Film film = fr.findById(idF).get();
+		Glumac glumac = gr.findById(idG).get();
+		
+		film.addGlumac(glumac);		
+		fr.save(film);
+		
+//		glumac.addFilm(film); // DA LI OVO TREBA? <-----
+//		gr.save(glumac);
+		
+		return "povezi/PovezFilmGlumac";
+	}
 
 
 }

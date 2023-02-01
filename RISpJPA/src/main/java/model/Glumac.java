@@ -117,6 +117,10 @@ public class Glumac implements Serializable {
 	public void setFilms(List<Film> films) {
 		this.films = films;
 	}
+	
+	public void addFilm(Film f) {
+		this.films.add(f);
+	}
 
 	public List<Korisnik> getDislikedByKorisnik() {
 		return this.dislikedByKorisnik;
