@@ -14,7 +14,12 @@
 	<a href="/imdb/unos/UnosRezisera.jsp">Unos Rezisera</a> <br>
 	<a href="/imdb/film/getRezisereIZanrove">Unos Filma</a> <br>
 	<a href="/imdb/film/getSveFilmove">Prikaz svih filmova</a> <br>
-	<a href="/imdb/film/getSveFilmove2">Prikaz svih filmova DVA</a>
+	<a href="/imdb/film/getSveFilmove2">Prikaz svih filmova sa ID</a> <br>
+	<a href="/imdb/FilmoviUPeriodu.jsp">Prikaz filmova u periodu</a> <br>
+	<a href="/imdb/glumac/aktivniGlumci">Prikaz aktivnih glumaca ?</a> <br>
+	<a href="/imdb/film/sortiraniFilmovi">Prikaz filmova sortirano ?</a> <br>
+	<a href="/imdb/film/getSviFilmoviReport.pdf">Jassper report svih filmova</a> <br>
+	<a href="/imdb/reziser/getReziserData">Izmena rezisera</a> <br>
 	
 	
 </body>

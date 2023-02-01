@@ -3,6 +3,7 @@ package com.example.demo.controller;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -56,6 +57,18 @@ public class GlumacController {
 //		SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
 		sdf.setLenient(true);
 		binder.registerCustomEditor(Date.class, new CustomDateEditor(sdf, true));
+	}
+	
+	
+	@RequestMapping(value="/aktivniGlumci", method=RequestMethod.GET)
+	public String aktivniGlumci(Date datumOd, Date datumDo,  HttpServletRequest request) {
+		
+//		List<Glumac> glumci = gr.aktivniGlumci();
+		List<Glumac> glumci = gr.findAllByAktivanDoIsNull();
+		request.getSession().setAttribute("glumci", glumci);
+		
+		
+		return "AktivniGlumci";
 	}
 	
 }

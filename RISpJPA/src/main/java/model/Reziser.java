@@ -148,4 +148,13 @@ public class Reziser implements Serializable {
 		this.likedByKorisnik = likedByKorisnik;
 	}
 
+	@Override
+	public String toString() {
+		return  ime + " " + prezime ;
+	}
+
+	
+	
+	
+	
 }

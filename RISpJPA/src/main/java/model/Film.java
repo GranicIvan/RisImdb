@@ -183,4 +183,21 @@ public class Film implements Serializable {
 		this.hasZanr = hasZanr;
 	}
 
+	@Override
+	public String toString() {
+		return "idFilm=" + idFilm + ", ime=" + ime + ", release_date=" + release_date + ", trajanje=" + trajanje
+				+ ", reziser=" + reziser + ", glavniZanr=" + glavniZanr ;
+	}
+
+	public int getIdFilm() {
+		return idFilm;
+	}
+
+	public void setIdFilm(int idFilm) {
+		this.idFilm = idFilm;
+	}
+
+	
+	
+	
 }

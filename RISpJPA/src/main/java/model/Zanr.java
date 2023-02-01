@@ -77,4 +77,13 @@ public class Zanr implements Serializable {
 		this.films = films;
 	}
 
+	@Override
+	public String toString() {
+		return  ime+"" ;
+	}
+
+	
+	
+	
+	
 }

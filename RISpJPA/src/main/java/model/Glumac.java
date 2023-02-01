@@ -20,10 +20,12 @@ public class Glumac implements Serializable {
 	private int idGlumac;
 
 	@Temporal(TemporalType.DATE)
-	private Date aktivan_do;
+	@Column(name = "aktivan_do")
+	private Date aktivanDo;
 
 	@Temporal(TemporalType.DATE)
-	private Date aktivan_od;
+	@Column(name = "aktivan_od")
+	private Date aktivanOd;
 
 	private int godiste;
 
@@ -61,19 +63,19 @@ public class Glumac implements Serializable {
 	}
 
 	public Date getAktivan_do() {
-		return this.aktivan_do;
+		return this.aktivanDo;
 	}
 
 	public void setAktivan_do(Date aktivan_do) {
-		this.aktivan_do = aktivan_do;
+		this.aktivanDo = aktivan_do;
 	}
 
 	public Date getAktivan_od() {
-		return this.aktivan_od;
+		return this.aktivanOd;
 	}
 
 	public void setAktivan_od(Date aktivan_od) {
-		this.aktivan_od = aktivan_od;
+		this.aktivanOd = aktivan_od;
 	}
 
 	public int getGodiste() {
