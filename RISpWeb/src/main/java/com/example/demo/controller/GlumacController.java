@@ -65,6 +65,7 @@ public class GlumacController {
 		
 //		List<Glumac> glumci = gr.aktivniGlumci();
 		List<Glumac> glumci = gr.findAllByAktivanDoIsNull();
+		System.out.println("glumci: " + glumci.size());
 		request.getSession().setAttribute("glumci", glumci);
 		
 		

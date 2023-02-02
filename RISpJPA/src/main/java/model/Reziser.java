@@ -150,7 +150,13 @@ public class Reziser implements Serializable {
 
 	@Override
 	public String toString() {
-		return  ime + " " + prezime ;
+		if(nadimak.isEmpty()) {
+			return  ime + " " + prezime ;
+		}else {
+			return  ime + " (" + nadimak + ") " + prezime ;
+		}
+		
+		
 	}
 
 	

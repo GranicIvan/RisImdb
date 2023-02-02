@@ -26,15 +26,16 @@ public class Film implements Serializable {
 
 	private int trajanje;
 
+	// OVO JE POLUPANO -----------------------------------------------
 	//bi-directional many-to-many association to Glumac
 	@ManyToMany
 	@JoinTable(
 		name="glumac_glumi_u_film"
 		, joinColumns={
-			@JoinColumn(name="Glumac_idGlumac", referencedColumnName="idFilm")
+			@JoinColumn(name="Film_idFilm")
 			}
 		, inverseJoinColumns={
-			@JoinColumn(name="Film_idFilm")
+			@JoinColumn(name="Glumac_idGlumac")
 			}
 		)
 	private List<Glumac> glumacs;
@@ -44,10 +45,10 @@ public class Film implements Serializable {
 	@JoinTable(
 		name="korisnik_dislike_film"
 		, joinColumns={
-			@JoinColumn(name="Korisnik_idKorisnik", referencedColumnName="idFilm")
+			@JoinColumn(name="Film_idFilm")
 			}
 		, inverseJoinColumns={
-			@JoinColumn(name="Film_idFilm")
+			@JoinColumn(name="Korisnik_idKorisnik")
 			}
 		)
 	private List<Korisnik> dislikedByKorisnik;
@@ -56,11 +57,11 @@ public class Film implements Serializable {
 	@ManyToMany
 	@JoinTable(
 		name="korisnik_faves_film"
-		, joinColumns={
-			@JoinColumn(name="Korisnik_idKorisnik", referencedColumnName="idFilm")
-			}
-		, inverseJoinColumns={
+		, joinColumns={								// ovo obrises
 			@JoinColumn(name="Film_idFilm")
+			}
+		, inverseJoinColumns={//ova dva zamenis
+			@JoinColumn(name="Korisnik_idKorisnik")
 			}
 		)
 	private List<Korisnik> favedByKorisnik;
@@ -70,10 +71,10 @@ public class Film implements Serializable {
 	@JoinTable(
 		name="korisnik_like_film"
 		, joinColumns={
-			@JoinColumn(name="Korisnik_idKorisnik", referencedColumnName="idFilm")
+			@JoinColumn(name="Film_idFilm")
 			}
 		, inverseJoinColumns={
-			@JoinColumn(name="Film_idFilm")
+			@JoinColumn(name="Korisnik_idKorisnik")
 			}
 		)
 	private List<Korisnik> likedByKorisnik;
@@ -92,10 +93,10 @@ public class Film implements Serializable {
 	@JoinTable(
 		name="film_has_zanr"
 		, joinColumns={
-			@JoinColumn(name="Zanr_idZanr", referencedColumnName="idFilm")
+			@JoinColumn(name="Film_idFilm")
 			}
 		, inverseJoinColumns={
-			@JoinColumn(name="Film_idFilm")
+			@JoinColumn(name="Zanr_idZanr")
 			}
 		)
 	private List<Zanr> hasZanr;

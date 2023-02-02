@@ -21,6 +21,7 @@
 	<a href="/imdb/film/getSviFilmoviReport.pdf">Jassper report svih filmova</a> <br>
 	<a href="/imdb/reziser/getReziserData">Izmena rezisera</a> <br>
 	<a href="/imdb/film/dataForPoveziFiG">Povezivanje filma i Glumca</a> <br>
+	<a href="/imdb/film/getZanroveZaJasper">Jassper report filmovi od jednog rezisera</a> <br>
 	
 	
 	

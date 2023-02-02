@@ -20,11 +20,11 @@ public class Glumac implements Serializable {
 	private int idGlumac;
 
 	@Temporal(TemporalType.DATE)
-	@Column(name = "aktivan_do")
+	@Column(name = "Aktivan_do")
 	private Date aktivanDo;
 
 	@Temporal(TemporalType.DATE)
-	@Column(name = "aktivan_od")
+	@Column(name = "Aktivan_od")
 	private Date aktivanOd;
 
 	private int godiste;

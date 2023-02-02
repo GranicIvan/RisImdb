@@ -26,7 +26,7 @@
 					<td>${f.trajanje}</td>
 					<td>${f.glavniZanr.ime}</td>
 					<td>${f.reziser.ime} ${f.reziser.prezime}</td>
-					<td><a href="/imdb/film/faveFilm?idF=${f.idFilm}">Fave</a></td>
+					<td><a href="/imdb/film/faveFilm?idFilm=${f.idFilm}">Fave</a></td>
 					
 				</tr>
 			</c:forEach>

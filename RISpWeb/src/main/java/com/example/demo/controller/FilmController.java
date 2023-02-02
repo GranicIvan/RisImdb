@@ -2,6 +2,7 @@ package com.example.demo.controller;
 
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.security.Principal;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
@@ -152,13 +153,13 @@ public class FilmController {
 		return "SviFilmovi2";
 	}
 	
-	@RequestMapping(value="/faveFilm", method=RequestMethod.GET)
-	public String faveFilm(Integer idF, Integer idK, HttpServletRequest request) {
-		Film f =  fr.findById(idF).get();
-		
-		
-		return "";
-	}
+//	@RequestMapping(value="/faveFilm", method=RequestMethod.GET)
+//	public String faveFilm(Integer idF, Integer idK, HttpServletRequest request) {
+//		Film f =  fr.findById(idF).get();
+//		
+//		
+//		return "";
+//	}
 	
 	@RequestMapping(value="/filmUPerodu", method=RequestMethod.GET)
 	public String filmUPerodu(Date datumOd, Date datumDo,  HttpServletRequest request) {
@@ -174,9 +175,10 @@ public class FilmController {
 	public String sortiraniFilmovi(HttpServletRequest request) {
 		
 		List<Film> filmovi = fr.sortiraniFilmoviR();
+		System.out.println("PRINT " + filmovi.size());
 		request.getSession().setAttribute("filmovi", filmovi);
 		
-		return "sortiraniFilmovi";
+		return "SortiraniFilmovi";
 	}
 	
 	@RequestMapping(value="/getSviFilmoviReport.pdf", method=RequestMethod.GET)
@@ -197,16 +199,26 @@ public class FilmController {
 		JasperExportManager.exportReportToPdfStream(jasperPrint,out);
 	}
 
-	@RequestMapping(value="/faveFilm", method=RequestMethod.POST)
-	public String saveFilm(Integer idF,  Model m, HttpServletRequest request  ) {
+	@RequestMapping(value="/faveFilm", method=RequestMethod.GET)
+	public String faveFilm(Integer idFilm,  Model m, HttpServletRequest request  ) {
+		System.out.println("Usao");
 		
-		Film film = fr.findById(idF).get();
+		Film film = fr.findById(idFilm).get();
 		Korisnik korisnik = new Korisnik(); //Kako da ga dobijem
 		
 		film.addFavedByKorisnik(korisnik); 
 		
+		Principal principal = request.getUserPrincipal();
+		String ime = principal.getName();
 		
-		return ""; //ISTU STRANICU 
+		System.out.println("ime je:" + ime);
+		
+		
+		String path = request.getContextPath();
+		System.out.println(path);
+		
+		return "SviFilmovi"; //ISTU STRANICU 
+		//na jsp hidden input koji je adresa stranice i to uhvatimo u str parametar i to uradimo return
 	}
 		
 	
@@ -219,24 +231,73 @@ public class FilmController {
 		List<Glumac> glumci = gr.findAll();
 		request.getSession().setAttribute("glumci", glumci);
 		
-		return "povezi/PovezFilmGlumac";
+		return "povezivanje/PovezFilmGlumac";
 	}
 	
 	
-	@RequestMapping(value="/poveziFiG", method=RequestMethod.POST)
-	public String poveziFiG(Integer idF, Integer idG,  Model m, HttpServletRequest request  ) {
-	
-		Film film = fr.findById(idF).get();
-		Glumac glumac = gr.findById(idG).get();
+	@RequestMapping(value="/poveziFiG", method=RequestMethod.POST)//Bilo POST
+	public String poveziFiG(Integer idFilm, Integer idGlumac,  Model m, HttpServletRequest request  ) {
+
+		Film film = fr.findById(idFilm).get();
+		Glumac glumac = gr.findById(idGlumac).get();
 		
-		film.addGlumac(glumac);		
+		
+		film.addGlumac(glumac);	
+		
+		//TODO Ubaciti proveru da li su vec povezani, i ispisati poruku
 		fr.save(film);
-		
-//		glumac.addFilm(film); // DA LI OVO TREBA? <-----
 //		gr.save(glumac);
 		
-		return "povezi/PovezFilmGlumac";
+		
+//		glumac.addFilm(film); // DA LI OVO TREBA? <-----
+//		glumac.addFilm(film);
+		
+		
+		return "povezivanje/PovezFilmGlumac";
 	}
+	
+	
+	@RequestMapping(value="/getZanroveZaJasper", method=RequestMethod.GET)
+	public String getZanroveZaJasper(HttpServletRequest request) {
+		List<Zanr> zan = zr.findAll();
+		request.getSession().setAttribute("zanrovi", zan);
+		return "IzaberiReziseraJasper";
+	}
+	
+	
+	@RequestMapping(value="/pozoviJasperFpZ", method=RequestMethod.GET)
+	public String pozoviJasperFpZ(Integer idReziser, HttpServletRequest request) {
+		
+		Reziser r = rr.findById(idReziser).get();
+		request.getSession().setAttribute("imeRezisera", r.toString());
+		request.getSession().setAttribute("idReziser", r.getIdReziser());
+		
+		
+		return "/getFilmoviPoZanrovima.pdf";
+	}
+	
+	
+	
+	@RequestMapping(value="/getFilmoviPoZanrovima.pdf", method=RequestMethod.GET)
+	public void showReportFpZ(HttpServletResponse response, HttpServletRequest request) throws Exception{
+		Integer idR = (Integer) request.getSession().getAttribute("idReziser");
+		JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(fr.filmoviReziseraSortPoZanr(idR));
+		InputStream inputStream = this.getClass().getResourceAsStream("/jasperreports/FilmoviPoZanrovima.jrxml");
+		JasperReport jasperReport = JasperCompileManager.compileReport(inputStream);
+		Map<String, Object> params = new HashMap<String, Object>();
+		
+		String imeRez = (String) request.getSession().getAttribute("imeRezisera");
+		params.put("imeRezisera", imeRez);
+		JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, params, dataSource);
+		inputStream.close();
+		
+		
+		response.setContentType("application/x-download");
+		response.addHeader("Content-disposition", "attachment; filename=SviFilmoviOdRezisera.pdf");
+		OutputStream out = response.getOutputStream();
+		JasperExportManager.exportReportToPdfStream(jasperPrint,out);
+	}
+	
 
 
 }
