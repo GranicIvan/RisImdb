@@ -148,7 +148,7 @@ public class Glumac implements Serializable {
 
 	@Override
 	public String toString() {
-		return "godiste=" + godiste + ", ime=" + ime + ", nadimak=" + nadimak + ", prezime=" + prezime
+		return "godiste=" + godiste + ", ime-*=" + ime + ", nadimak=" + nadimak + ", prezime=" + prezime
 				+ ", Aktivan_od=" + Aktivan_od + ", Aktivan_do=" + Aktivan_do ;
 	}
 
