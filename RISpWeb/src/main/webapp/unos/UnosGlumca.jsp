@@ -9,6 +9,8 @@
 </head>
 <body>
 
+	<a href="/imdb">Pocetna strana</a> <br> 
+
 	<form action="/imdb/glumac/saveGlumac" method="post">
 		<table>
 			
@@ -42,6 +44,9 @@
 		</table>	
 	</form>
 
+	<c:if test="${!empty glumac}">
+		${poruka} 	Glumac:  ${glumac}
+	</c:if>
 
 
 </body>

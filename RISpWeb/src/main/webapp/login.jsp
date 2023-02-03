@@ -6,8 +6,39 @@
 
 <html>
 
+<style>
+.center {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 95%;
+ 
+}
+.main {
+  text-align: center;
+  padding: 15px 15px;
+  border-radius: 10px;
+  background-color: #274c77;
+  margin-left: auto;
+  margin-right: auto;
+  width: 35%;
+}
+body {
+	font-family: helvetica, sans-serif;
+	background-color: #e7ecef;
+	color:#e7ecef;
+}
 
+a {
+color:orange;
+}
+a:hover{
+color:#f4a261;
+}
+</style>
 <body>
+<div class="main">
+<div class="center">
 	<c:url var="loginUrl" value="/login" />
 	<c:if test="${not empty SPRING_SECURITY_LAST_EXCEPTION.message}">
 		<div>
@@ -17,17 +48,17 @@
 	<form action="${loginUrl}" method="post">
 		<table>
 			<tr>
-				<td>Mail</td>
+				<td>E-mail adresa:</td>
 				<td><input type="text" name="username"
 					placeholder="Enter Username" required></td>
 			</tr>
 			<tr>
-				<td>Sifra</td>
+				<td>Sifra:</td>
 				<td><input type="password" name="password"
 					placeholder="Enter Password" required></td>
 			</tr>
 			 <tr>
-                <td>Remember Me:</td>
+                <td>Zapamti me:</td>
                 <td><input type="checkbox" name="remember-me" /></td>
             </tr>
 			<tr>
@@ -36,7 +67,9 @@
 				<td><input type="submit" value="Log in"></td>
 			</tr>
 		</table>
-		Nemate nalog? <a href="/Pozoriste/auth/registerUser">Registrujte se</a>
+		Nemate nalog? <a href="/imdb/auth/registerUser">Registrujte se</a>
 	</form>
+	</div>
+	</div>
 </body>
 </html>

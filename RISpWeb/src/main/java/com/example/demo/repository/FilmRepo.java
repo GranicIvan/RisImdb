@@ -21,8 +21,15 @@ public interface FilmRepo extends JpaRepository<Film, Integer>{
 	
 
 //	@Query("select distinct f from Film f WHERE f.Reziser_idReziser = :idR order by f.Zanr_idZanr")
-	@Query("select distinct f from Film f WHERE f.idReziser = :idReziser order by f.idZanr")
-	public List<Film> filmoviReziseraSortPoZanr(Integer idReziser);
-//	public List<Film> filmoviReziseraSortPoZanr(@Param("idReziser")Integer idReziser);
+//	@Query(value ="select distinct f from Film f WHERE f.idReziser = :idR order by f.idZanr" , nativeQuery = true)
+//	@Query("select f from Film f WHERE f.idReziser = :idR order by f.idZanr")
 	
+	//Not in use
+//	@Query(value ="select f from Film f WHERE f.idReziser = :idR order by f.idZanr" , nativeQuery = true)
+	@Query(value ="select f from Film f WHERE f.reziser.idReziser = :idR order by f.idZanr" , nativeQuery = true)
+	public List<Film> filmoviReziseraSortPoZanr(@Param("idR")Integer idR);
+//	public List<Film> filmoviReziseraSortPoZanr(Integer idReziser);
+	
+	
+
 }

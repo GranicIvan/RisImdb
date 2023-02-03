@@ -9,12 +9,12 @@
 	<field name="ime" class="java.lang.String"/>
 	<field name="release_date" class="java.util.Date"/>
 	<field name="trajanje" class="java.lang.Integer"/>
-	<field name="zanr" class="model.Zanr"/>
+	<field name="glavniZanr" class="model.Zanr"/>
 	<variable name="UkupnoClanova" class="java.lang.Integer" calculation="Count">
 		<variableExpression><![CDATA[$F{ime}]]></variableExpression>
 	</variable>
 	<group name="Group1">
-		<groupExpression><![CDATA[$F{zanr}]]></groupExpression>
+		<groupExpression><![CDATA[$F{glavniZanr}]]></groupExpression>
 		<groupHeader>
 			<band height="60">
 				<staticText>
@@ -66,11 +66,17 @@
 					<text><![CDATA[Trajanje]]></text>
 				</staticText>
 				<textField>
-					<reportElement x="80" y="0" width="110" height="30" uuid="128e77d6-0d40-4384-88ce-a9436e994af4"/>
-					<box leftPadding="4"/>
-					<textElement verticalAlignment="Middle"/>
-					<textFieldExpression><![CDATA[Zanr: $F{zanr}]]></textFieldExpression>
+					<reportElement x="130" y="0" width="110" height="30" uuid="128e77d6-0d40-4384-88ce-a9436e994af4"/>
+					<box leftPadding="2" bottomPadding="3"/>
+					<textElement verticalAlignment="Bottom"/>
+					<textFieldExpression><![CDATA[ $F{glavniZanr}]]></textFieldExpression>
 				</textField>
+				<staticText>
+					<reportElement x="80" y="0" width="50" height="30" uuid="0e577a07-d4b1-4a81-8147-15234700b55a"/>
+					<box bottomPadding="3"/>
+					<textElement textAlignment="Right" verticalAlignment="Bottom"/>
+					<text><![CDATA[Zanr:]]></text>
+				</staticText>
 			</band>
 		</groupHeader>
 	</group>
@@ -78,15 +84,32 @@
 		<band splitType="Stretch"/>
 	</background>
 	<title>
-		<band height="65" splitType="Stretch">
+		<band height="76" splitType="Stretch">
 			<staticText>
-				<reportElement x="-20" y="0" width="595" height="63" uuid="d67eff91-7127-4e3d-878c-7e8041931c64">
+				<reportElement x="430" y="12" width="144" height="63" uuid="d67eff91-7127-4e3d-878c-7e8041931c64">
 					<property name="com.jaspersoft.studio.unit.x" value="px"/>
 				</reportElement>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Agency FB" size="34"/>
+				<box leftPadding="4"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Agency FB" size="26"/>
 				</textElement>
-				<text><![CDATA[Svi filmovi $P{ImeRezisera} po zanrovima]]></text>
+				<text><![CDATA[po zanrovima]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="160" y="12" width="270" height="64" uuid="7b9114a0-d67a-4095-b690-51dc80e9c50d"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Agency FB" size="26"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{ImeRezisera}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="-20" y="13" width="180" height="63" uuid="5d885020-4cd4-4fb9-9649-8d6efee88f73">
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Agency FB" size="26"/>
+				</textElement>
+				<text><![CDATA[Svi filmovi rezisera:]]></text>
 			</staticText>
 		</band>
 	</title>
@@ -108,6 +131,7 @@
 					<bottomPen lineWidth="1.0"/>
 					<rightPen lineWidth="1.0"/>
 				</box>
+				<textElement verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{ime}]]></textFieldExpression>
 			</textField>
 			<textField>
@@ -120,6 +144,7 @@
 					<bottomPen lineWidth="1.0"/>
 					<rightPen lineWidth="1.0"/>
 				</box>
+				<textElement verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{release_date}]]></textFieldExpression>
 			</textField>
 			<textField>
@@ -132,6 +157,7 @@
 					<bottomPen lineWidth="1.0"/>
 					<rightPen lineWidth="1.0"/>
 				</box>
+				<textElement verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{trajanje}]]></textFieldExpression>
 			</textField>
 		</band>
@@ -150,12 +176,17 @@
 		</band>
 	</pageFooter>
 	<summary>
-		<band height="44" splitType="Stretch">
+		<band height="53" splitType="Stretch">
 			<textField>
-				<reportElement x="100" y="7" width="200" height="30" uuid="5d55f2bc-0ce9-4e5f-8165-25c9098be942"/>
+				<reportElement x="170" y="7" width="130" height="30" uuid="5d55f2bc-0ce9-4e5f-8165-25c9098be942"/>
 				<box leftPadding="3"/>
-				<textFieldExpression><![CDATA[Ukupno filmova: $V{UkupnoClanova}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$V{UkupnoClanova}]]></textFieldExpression>
 			</textField>
+			<staticText>
+				<reportElement x="70" y="7" width="100" height="30" uuid="59ac131b-73ca-4175-896e-e482c89f6b3b"/>
+				<textElement textAlignment="Right"/>
+				<text><![CDATA[Ukupno filmova: ]]></text>
+			</staticText>
 		</band>
 	</summary>
 </jasperReport>

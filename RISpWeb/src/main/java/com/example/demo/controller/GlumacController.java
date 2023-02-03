@@ -16,8 +16,10 @@ import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.example.demo.repository.FilmRepo;
 import com.example.demo.repository.GlumacRepository;
 
+import model.Film;
 import model.Glumac;
 
 @Controller
@@ -27,6 +29,9 @@ public class GlumacController {
 	
 	@Autowired
 	GlumacRepository gr;
+	
+	@Autowired
+	FilmRepo fr;
 		
 	//@ModelAttribute("glumac") Glumac g
 	@RequestMapping(value="/saveGlumac", method=RequestMethod.POST)
@@ -71,5 +76,34 @@ public class GlumacController {
 		
 		return "AktivniGlumci";
 	}
+	
+	@RequestMapping(value="/dataGlumciUFilmu", method=RequestMethod.GET)
+	public String dataGlumciUFilmu(HttpServletRequest request) {
+		
+		List<Film> filmovi = fr.findAll();
+		
+		request.getSession().setAttribute("filmovi", filmovi);
+	
+		return "GlumciUFilmu";
+	}
+	
+	
+	
+	@RequestMapping(value="/glumciUFilmu", method=RequestMethod.POST)
+	public String glumciUFilmu(Integer idFilm, HttpServletRequest request) {
+		
+		Film film = fr.findById(idFilm).get();
+		
+		List<Glumac> glumci = gr.findAll();
+		
+		glumci = glumci.stream()
+				.filter(o -> o.getFilms().contains(film) )
+				.toList();
+		
+		request.getSession().setAttribute("glumci", glumci);
+		
+		return "GlumciUFilmu";
+	}
+	
 	
 }

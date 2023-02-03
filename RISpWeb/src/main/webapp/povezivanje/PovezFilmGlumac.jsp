@@ -9,6 +9,8 @@
 </head>
 <body>
 	
+	<a href="/imdb">Pocetna strana</a> <br> 
+	
 	<form action="/imdb/film/poveziFiG" method="post">
 		<table>
 
@@ -17,7 +19,7 @@
 				<td>
 					<select name="idFilm">
 						<c:forEach items="${filmovi}" var="f">
-							<option value="${f.idFilm}">${f.ime} JOS JESTO</option>
+							<option value="${f.idFilm}">${f.ime} ${f.release_date}</option>
 						</c:forEach>
 					</select>
 				</td>

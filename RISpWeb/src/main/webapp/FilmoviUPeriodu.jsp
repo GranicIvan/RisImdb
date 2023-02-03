@@ -9,6 +9,13 @@
 </head>
 <body>
 
+
+	<a href="/imdb">Pocetna strana</a>
+	<br>
+
+
+
+
 	<form action="/imdb/film/filmUPerodu" method="get">
 		<table>
 			<tr>
@@ -55,13 +62,12 @@
 
 				</tr>
 			</c:forEach>
-
-
-
 		</table>
-
-
 	</c:if>
+
+
+
+
 
 
 

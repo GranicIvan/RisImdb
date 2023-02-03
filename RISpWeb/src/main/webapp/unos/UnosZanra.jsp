@@ -7,6 +7,9 @@
 <title>Unos Zanra</title>
 </head>
 <body>
+
+	<a href="/imdb">Pocetna strana</a> <br> 
+
 	<!-- kontext path /requestMapping kontrolera/RequestMapping metode     -->
 	<form action="/imdb/zanr/saveZanr" modelAttribute="zanr" method="post" >
 		<table>
@@ -18,10 +21,11 @@
 				<td> <input type="submit" value="Ubaci Zanr"></td>
 			</tr>
 		</table>
-	
-	
-	
 	</form>
+	
+	<c:if test="${!empty zanr}">
+		${poruka} 	Zanr se zove: ${zanr}
+	</c:if>
 
 </body>
 </html>

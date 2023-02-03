@@ -9,6 +9,8 @@
 </head>
 <body>
 
+	<a href="/imdb">Pocetna strana</a> <br> 
+
 	<form action="/imdb/reziser/saveReziser" method="post">
 		<table>
 
@@ -30,7 +32,9 @@
 		</table>
 	</form>
 
-
+	<c:if test="${!empty reziser}">
+		${poruka} 	Reziser se zove: ${reziser}
+	</c:if>
 
 </body>
 </html>

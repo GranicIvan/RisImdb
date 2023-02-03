@@ -8,6 +8,9 @@
 <title>Sortirani Filmovi</title>
 </head>
 <body>
+
+	<a href="/imdb">Pocetna strana</a> <br> 
+
 	<table border="1">
 		<tr>
 			<td>Ime</td>
@@ -26,12 +29,9 @@
 					<td>${f.glavniZanr.ime}</td>
 					<td>${f.reziser.ime} ${f.reziser.prezime}</td>
 					
-
 				</tr>
 			</c:forEach>
 		</c:if>
-
-
 	</table>
 
 

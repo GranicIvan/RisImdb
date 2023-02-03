@@ -4,6 +4,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.security.Principal;
 import java.text.SimpleDateFormat;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -118,8 +119,8 @@ public class FilmController {
 		
 		Film novi = fr.save(f);
 		request.getSession().setAttribute("film", f);
-		m.addAttribute("poruka", "Reziser je uspesno sacuvan.");
-		System.out.println("Film: "+ novi +" je sacuvan");
+		m.addAttribute("poruka", "Film je uspesno sacuvan.");
+//		System.out.println("Film: "+ novi +" je sacuvan");
 		
 //		Film ubacen = fr.findById(novi.get)
 		
@@ -257,15 +258,15 @@ public class FilmController {
 	}
 	
 	
-	@RequestMapping(value="/getZanroveZaJasper", method=RequestMethod.GET)
+	@RequestMapping(value="/getRezisereZaJasper", method=RequestMethod.GET)
 	public String getZanroveZaJasper(HttpServletRequest request) {
-		List<Zanr> zan = zr.findAll();
-		request.getSession().setAttribute("zanrovi", zan);
+		List<Reziser> rez = rr.findAll();
+		request.getSession().setAttribute("reziseri", rez);		
 		return "IzaberiReziseraJasper";
 	}
 	
 	
-	@RequestMapping(value="/pozoviJasperFpZ", method=RequestMethod.GET)
+	@RequestMapping(value="/pozoviJasperFpZ", method=RequestMethod.POST)//bilo get
 	public String pozoviJasperFpZ(Integer idReziser, HttpServletRequest request) {
 		
 		Reziser r = rr.findById(idReziser).get();
@@ -273,21 +274,34 @@ public class FilmController {
 		request.getSession().setAttribute("idReziser", r.getIdReziser());
 		
 		
-		return "/getFilmoviPoZanrovima.pdf";
+		return "IzaberiReziseraJasper";
+
 	}
 	
 	
 	
-	@RequestMapping(value="/getFilmoviPoZanrovima.pdf", method=RequestMethod.GET)
+	@RequestMapping(value="/getFilmoviPoZanrovima", method=RequestMethod.POST)//bilo get
 	public void showReportFpZ(HttpServletResponse response, HttpServletRequest request) throws Exception{
-		Integer idR = (Integer) request.getSession().getAttribute("idReziser");
-		JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(fr.filmoviReziseraSortPoZanr(idR));
+//		System.out.println("Usli smo showReportFpZ");
+		Integer idReziser = (Integer) request.getSession().getAttribute("idReziser");
+		
+		List<Film> sviFilmovi = fr.findAll();
+		
+		sviFilmovi = sviFilmovi.stream()
+				.filter(o -> o.getReziser().getIdReziser() == idReziser)
+				.sorted(Comparator.comparing(Film::getGlavniZanrId))
+				.toList();
+		
+//		JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(fr.filmoviReziseraSortPoZanr(idReziser));
+		JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(sviFilmovi);
+		
 		InputStream inputStream = this.getClass().getResourceAsStream("/jasperreports/FilmoviPoZanrovima.jrxml");
 		JasperReport jasperReport = JasperCompileManager.compileReport(inputStream);
 		Map<String, Object> params = new HashMap<String, Object>();
 		
 		String imeRez = (String) request.getSession().getAttribute("imeRezisera");
-		params.put("imeRezisera", imeRez);
+		System.out.println("ime rezisera je: " + imeRez);
+		params.put("ImeRezisera", imeRez);
 		JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, params, dataSource);
 		inputStream.close();
 		

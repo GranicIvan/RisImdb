@@ -9,6 +9,8 @@
 </head>
 <body>
 
+	<a href="/imdb">Pocetna strana</a> <br> 
+
 	<table border="1">
 		<tr>
 			<td>ID</td>

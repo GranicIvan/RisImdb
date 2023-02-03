@@ -179,6 +179,10 @@ public class Film implements Serializable {
 	public Zanr getGlavniZanr() {
 		return this.glavniZanr;
 	}
+	
+	public int getGlavniZanrId() {
+		return this.glavniZanr.getIdZanr();
+	}
 
 	public void setGlavniZanr(Zanr glavniZanr) {
 		this.glavniZanr = glavniZanr;

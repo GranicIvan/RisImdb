@@ -18,14 +18,14 @@ public class Glumac implements Serializable {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int idGlumac;
-
+	
+//	@Column(name = "Aktivan_do")
 	@Temporal(TemporalType.DATE)
-	@Column(name = "Aktivan_do")
-	private Date aktivanDo;
-
+	private Date Aktivan_do;
+	
+//	@Column(name = "Aktivan_od")
 	@Temporal(TemporalType.DATE)
-	@Column(name = "Aktivan_od")
-	private Date aktivanOd;
+	private Date Aktivan_od;
 
 	private int godiste;
 
@@ -63,19 +63,19 @@ public class Glumac implements Serializable {
 	}
 
 	public Date getAktivan_do() {
-		return this.aktivanDo;
+		return this.Aktivan_do;
 	}
 
 	public void setAktivan_do(Date aktivan_do) {
-		this.aktivanDo = aktivan_do;
+		this.Aktivan_do = aktivan_do;
 	}
 
 	public Date getAktivan_od() {
-		return this.aktivanOd;
+		return this.Aktivan_od;
 	}
 
 	public void setAktivan_od(Date aktivan_od) {
-		this.aktivanOd = aktivan_od;
+		this.Aktivan_od = aktivan_od;
 	}
 
 	public int getGodiste() {
@@ -144,6 +144,12 @@ public class Glumac implements Serializable {
 
 	public void setLikedByKorisnik(List<Korisnik> likedByKorisnik) {
 		this.likedByKorisnik = likedByKorisnik;
+	}
+
+	@Override
+	public String toString() {
+		return "godiste=" + godiste + ", ime=" + ime + ", nadimak=" + nadimak + ", prezime=" + prezime
+				+ ", Aktivan_od=" + Aktivan_od + ", Aktivan_do=" + Aktivan_do ;
 	}
 
 }

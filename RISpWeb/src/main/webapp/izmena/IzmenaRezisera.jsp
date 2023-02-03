@@ -8,6 +8,8 @@
 <title>Izmena rezisera</title>
 </head>
 <body>
+	<a href="/imdb">Pocetna strana</a> <br> 
+
 	<form action="/imdb/reziser/loadReziserData" method="post">
 		<select name="idReziser">
 			<c:forEach items="${reziseri}" var="r">
